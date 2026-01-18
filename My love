@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff0f3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #container {
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 75, 110, 0.2);
+            z-index: 10;
+        }
+
+        h1 { color: #ff4d6d; margin-bottom: 30px; }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            position: relative;
+            height: 50px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { background-color: #595959; color: white; position: absolute; }
+
+        .hidden { display: none; }
+
+        #successMessage {
+            font-size: 1.5rem;
+            color: #ff4d6d;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            animation: float 3s linear forwards;
+        }
+
+        @keyframes float {
+            to { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="quiz-ui">
+            <h1>Will you be my Valentine? ❤️</h1>
+            <div class="btn-container">
+                <button id="yesBtn">Yes</button>
+                <button id="noBtn" style="left: 60%;">No</button>
+            </div>
+        </div>
+
+        <div id="successMessage" class="hidden">
+            <h1>Yay! Best decision ever! 🥰</h1>
+            <p>I can't wait to celebrate with you, even from miles away.</p>
+            <p><strong>I love you!</strong></p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const quizUI = document.getElementById('quiz-ui');
+        const successMessage = document.getElementById('successMessage');
+
+        // Make the "No" button run away
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        // Handle the "Yes" click
+        yesBtn.addEventListener('click', () => {
+            quizUI.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+            startHearts();
+        });
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '100vh';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 3000);
+            }, 100);
+        }
+    </script>
+</body>
+</html>
